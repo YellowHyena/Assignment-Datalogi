@@ -17,13 +17,49 @@ namespace InlämningDatalogiME
 
         public void Insert(T value)
         {
-            if (Root == null) Root = new Node<T>(value); return;
+            var node = new Node<T>(value);
+            var current = Root;
+            if (Root == null)
+            {
+                Root = node;
+            }
 
+            else if (Root.Data.CompareTo(value) < 0) // root < value
+            {
+                while (current.Data.CompareTo(value) < 0 && current.RightChild != null)
+                {
+                    current = current.RightChild;
+                }
+                current.RightChild = node;
+            }
+
+            else  // root > value
+            {
+                while (current.Data.CompareTo(value) > 0 && current.LeftChild != null)
+                {
+                    current = current.LeftChild;
+                }
+                current.LeftChild = node;
+            }
         }
 
         public void Print()
         {
-            Console.WriteLine(Root.Data);
+            var current = Root;
+            while (current != null)
+            {
+                current = current.LeftChild;
+                if (current != null) Console.WriteLine(current.Data);
+            }
+
+            current = Root;
+            Console.WriteLine(current.Data + " is root:");
+
+            while (current != null)
+            {
+                current = current.RightChild;
+                if (current != null) Console.WriteLine(current.Data);
+            }
         }
     }
 }
