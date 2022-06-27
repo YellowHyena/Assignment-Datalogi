@@ -3,7 +3,7 @@ namespace InlämningDatalogiME
 {
     public class BinarySearchTree<T> : BST_G<T> where T : IComparable<T>
     {
-        private Node<T>? Root = null;
+        public Node<T>? Root = null;
 
         public int Count()
         {
@@ -12,53 +12,60 @@ namespace InlämningDatalogiME
 
         public bool Exists(T value)
         {
-            throw new NotImplementedException();
+            var current = Root;
+            while (true)
+            {
+                if (current.Data.CompareTo(value) == 0) return true; //if current == value, return true
+
+                if (current.Data.CompareTo(value) < 0)
+                {
+                    if ( current.RightChild != null) current = current.RightChild;
+
+                    else return true; //If end is reached and nothing is found, return false
+                }
+                else
+                {
+                    if (current.LeftChild != null) current = current.LeftChild;
+
+                    else return false; //If end is reached and nothing is found, return false
+                }
+            }
         }
 
         public void Insert(T value)
         {
             var node = new Node<T>(value);
+            if (Root == null) { Root = node; return; }
+
             var current = Root;
-            if (Root == null)
-            {
-                Root = node;
-            }
 
-            else if (Root.Data.CompareTo(value) < 0) // root < value
+            while (true)
             {
-                while (current.Data.CompareTo(value) < 0 && current.RightChild != null)
+                if (current.Data.CompareTo(value) < 0)
                 {
-                    current = current.RightChild;
-                }
-                current.RightChild = node;
-            }
+                    if (current.RightChild != null) current = current.RightChild;
 
-            else  // root > value
-            {
-                while (current.Data.CompareTo(value) > 0 && current.LeftChild != null)
-                {
-                    current = current.LeftChild;
+                    else { current.RightChild = node; return; } //If end is reached, add node 
                 }
-                current.LeftChild = node;
+                else
+                {
+                    if (current.LeftChild != null) current = current.LeftChild; //If end is reached, add node 
+
+                    else { current.LeftChild = node; return; }
+                }
             }
         }
 
-        public void Print()
+        public void Print(Node<T> node)
         {
-            var current = Root;
-            while (current != null)
+            if (node != null)
             {
-                current = current.LeftChild;
-                if (current != null) Console.WriteLine(current.Data);
-            }
-
-            current = Root;
-            Console.WriteLine(current.Data + " is root:");
-
-            while (current != null)
-            {
-                current = current.RightChild;
-                if (current != null) Console.WriteLine(current.Data);
+                // Visit to left subtree
+                this.Print(node.LeftChild);
+                // Display node value
+                Console.Write("  " + node.Data);
+                // Visit to right subtree
+                this.Print(node.RightChild);
             }
         }
     }
