@@ -16,8 +16,11 @@ lista.Insert(-1);
 
 lista.Print(lista.Root);
 Console.WriteLine();
-Console.WriteLine(lista.Exists(20));
-Console.WriteLine(lista.Exists(21));
-Console.WriteLine(lista.Exists(1));
-Console.WriteLine(lista.Exists(-1));
-Console.WriteLine(lista.Exists(-4));
+lista.Printe();
+Console.WriteLine();
+Console.WriteLine("20 exists: "+lista.Exists(20));
+Console.WriteLine("21 exists: " + lista.Exists(21));
+Console.WriteLine("1 exists: " + lista.Exists(1));
+Console.WriteLine("-1 exists: " + lista.Exists(-1));
+Console.WriteLine("-4 exists: " + lista.Exists(-4));
+Console.WriteLine(lista.Count());

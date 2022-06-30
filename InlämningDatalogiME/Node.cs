@@ -10,9 +10,7 @@ namespace InlämningDatalogiME
 	{
 		public T Data { get; set; }
 		public Node<T>? LeftChild { get; set; }
-		public Node<T>? RightChild { get; set; }
-		
-		public T Count { get; set; }
+		public Node<T>? RightChild { get; set; }		
 
 		public Node(T value)
 		{
